@@ -1,15 +1,15 @@
 import UIKit
 
-public extension UIView {
-    var bundle: Bundle { Bundle(for: type(of: self)) }
+extension UIView {
+    public var bundle: Bundle { Bundle(for: type(of: self)) }
     
-    func setContentView(_ subview: UIView) {
+    public func setContentView(_ subview: UIView) {
         subview.frame = self.bounds
         self.addSubview(subview)
         subview.bindAllEdge(to: self)
     }
     
-    func bindAllEdge(to view: UIView) {
+    public func bindAllEdge(to view: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             leftAnchor.constraint(equalTo: view.leftAnchor),
