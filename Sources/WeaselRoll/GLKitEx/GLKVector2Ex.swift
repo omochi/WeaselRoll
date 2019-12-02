@@ -1,4 +1,5 @@
 import GLKit
+import CoreGraphics
 
 extension GLKVector2: GLKVectorProtocol {
     public init(_ x: Float, _ y: Float) {
@@ -26,6 +27,10 @@ extension GLKVector2: GLKVectorProtocol {
         GLKVector2Lerp(self, other, rate)
     }
     
+    public func toCGPoint() -> CGPoint {
+        CGPoint(x: CGFloat(x), y: CGFloat(y))
+    }
+    
     public func to3(z: Float) -> GLKVector3 {
         GLKVector3(x, y, z)
     }
@@ -33,6 +38,10 @@ extension GLKVector2: GLKVectorProtocol {
     public static let zero = GLKVector2(0, 0)
     
     public static let ones = GLKVector2(1, 1)
+    
+    public static let unitX = GLKVector2(1, 0)
+    
+    public static let unitY = GLKVector2(0, 1)
     
     public static func +(a: GLKVector2, b: GLKVector2) -> GLKVector2 {
         GLKVector2Add(a, b)

@@ -38,6 +38,14 @@ extension GLKVector4: GLKVectorProtocol {
     
     public static var ones = GLKVector4(1, 1, 1, 1)
     
+    public static let unitX = GLKVector4(1, 0, 0, 0)
+    
+    public static let unitY = GLKVector4(0, 1, 0, 0)
+    
+    public static let unitZ = GLKVector4(0, 0, 1, 0)
+    
+    public static let unitW = GLKVector4(0, 0, 0, 1)
+    
     public static func +(a: GLKVector4, b: GLKVector4) -> GLKVector4 {
         return GLKVector4Add(a, b)
     }

@@ -46,6 +46,12 @@ extension GLKVector3: GLKVectorProtocol {
     
     public static var ones = GLKVector3(1, 1, 1)
     
+    public static let unitX = GLKVector3(1, 0, 0)
+    
+    public static let unitY = GLKVector3(0, 1, 0)
+    
+    public static let unitZ = GLKVector3(0, 0, 1)
+    
     public static func +(a: GLKVector3, b: GLKVector3) -> GLKVector3 {
         return GLKVector3Add(a, b)
     }

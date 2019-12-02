@@ -121,7 +121,7 @@ extension GLKMatrix4: GLKMatrixProtocol {
                            0, sy, 0, 0,
                            0, 0, c, d,
                            0, 0, -1, 0)
-        return m.transposed
+        return m
     }
     
     public static func *(a: GLKMatrix4, b: GLKMatrix4) -> GLKMatrix4 {

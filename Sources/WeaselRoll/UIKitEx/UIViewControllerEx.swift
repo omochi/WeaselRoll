@@ -1,3 +1,5 @@
+#if os(iOS)
+
 import UIKit
 
 extension UIViewController {
@@ -8,3 +10,5 @@ extension UIViewController {
         self.present(vc, animated: animated, completion: completion)
     }
 }
+
+#endif
