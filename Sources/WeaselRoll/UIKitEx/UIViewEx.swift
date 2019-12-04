@@ -47,7 +47,7 @@ extension UIView {
         return ret
     }
     
-    public func hitInsidePointPassingSelf(_ point: CGPoint, with event: UIEvent?) -> Bool {
+    public func pointInsideSubviews(_ point: CGPoint, with event: UIEvent?) -> Bool {
         for view in subviews {
             guard !view.isHidden,
                 view.isUserInteractionEnabled else { continue }

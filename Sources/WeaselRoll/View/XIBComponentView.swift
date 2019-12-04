@@ -5,11 +5,11 @@ import UIKit
 open class XIBComponentView: UIView {
     @IBOutlet public private(set) var contentView: UIView!
 
-    @IBInspectable public var isPassingSelf: Bool = true
+    @IBInspectable public var doesHitSelf: Bool = false
     
     public convenience init() {
         self.init(frame: .zero)
-        frame = contentViewInitialFrame
+        frame = contentViewOriginalFrame
     }
 
     public override init(frame: CGRect) {
@@ -24,7 +24,7 @@ open class XIBComponentView: UIView {
         didInit()
     }
     
-    public var contentViewInitialFrame: CGRect = .zero
+    public var contentViewOriginalFrame: CGRect = .zero
     
     private func loadContentView() {
         precondition(contentView == nil)
@@ -37,7 +37,7 @@ open class XIBComponentView: UIView {
         }
         
         contentView = view
-        contentViewInitialFrame = view.frame
+        contentViewOriginalFrame = view.frame
         setContentView(contentView)
     }
     
@@ -52,10 +52,10 @@ open class XIBComponentView: UIView {
     open func didInit() {}
     
     public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        if isPassingSelf {
-            return hitInsidePointPassingSelf(point, with: event)
-        } else {
+        if doesHitSelf {
             return super.point(inside: point, with: event)
+        } else {
+            return hitInsidePointPassingSelf(point, with: event)
         }
     }
 }
