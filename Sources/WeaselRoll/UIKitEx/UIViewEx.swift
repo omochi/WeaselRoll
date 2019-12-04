@@ -20,6 +20,47 @@ extension UIView {
             bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+    
+    public func walk(_ cont: (UIView) -> Bool) {
+        guard cont(self) else {
+            return
+        }
+        
+        for v in subviews {
+            guard cont(v) else {
+                return
+            }
+        }
+    }
+    
+    public func find<T>(_ pred: (UIView) -> T?) -> T? {
+        var ret: T? = nil
+        
+        walk { (v) in
+            if let r = pred(v) {
+                ret = r
+                return false
+            }
+            return true
+        }
+        
+        return ret
+    }
+    
+    public func hitInsidePointPassingSelf(_ point: CGPoint, with event: UIEvent?) -> Bool {
+        for view in subviews {
+            guard !view.isHidden,
+                view.isUserInteractionEnabled else { continue }
+            
+            let point = convert(point, to: view)
+            
+            if view.point(inside: point, with: event) {
+                return true
+            }
+        }
+        
+        return false
+    }
 }
 
 #endif
