@@ -55,7 +55,7 @@ open class XIBComponentView: UIView {
         if doesHitSelf {
             return super.point(inside: point, with: event)
         } else {
-            return hitInsidePointPassingSelf(point, with: event)
+            return pointInsideSubviews(point, with: event)
         }
     }
 }
