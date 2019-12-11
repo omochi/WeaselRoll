@@ -46,6 +46,10 @@ extension GLKVector4: GLKVectorProtocol {
     
     public static let unitW = GLKVector4(0, 0, 0, 1)
     
+    public static prefix func -(a: GLKVector4) -> GLKVector4 {
+        GLKVector4Negate(a)
+    }
+    
     public static func +(a: GLKVector4, b: GLKVector4) -> GLKVector4 {
         return GLKVector4Add(a, b)
     }

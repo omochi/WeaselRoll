@@ -43,6 +43,10 @@ extension GLKVector2: GLKVectorProtocol {
     
     public static let unitY = GLKVector2(0, 1)
     
+    public static prefix func -(a: GLKVector2) -> GLKVector2 {
+        GLKVector2Negate(a)
+    }
+    
     public static func +(a: GLKVector2, b: GLKVector2) -> GLKVector2 {
         GLKVector2Add(a, b)
     }

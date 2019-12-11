@@ -21,6 +21,8 @@ public protocol GLKVectorProtocol: CustomStringConvertible {
     
     static var ones: Self { get }
     
+    static prefix func -(a: Self) -> Self
+    
     static func +(a: Self, b: Self) -> Self
     static func +=(a: inout Self, b: Self)
     

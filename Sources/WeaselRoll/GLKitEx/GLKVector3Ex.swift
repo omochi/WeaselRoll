@@ -34,6 +34,21 @@ extension GLKVector3: GLKVectorProtocol {
         GLKVector3Lerp(self, other, rate)
     }
     
+    public func angle(to target: GLKVector3) -> Float? {
+        guard let a = self.normalized(),
+            let b = target.normalized() else { return nil }
+        return GLKMathRadiansToDegrees(acos(a.dot(b)))
+    }
+    
+    public func rotation(to target: GLKVector3) -> GLKQuaternion {
+        guard let axis = self.cross(target).normalized(),
+            let angle = self.angle(to: target) else
+        {
+            return .identity
+        }
+        return GLKQuaternion(angle: angle, axis: axis)
+    }
+    
     public func to2() -> GLKVector2 {
         return GLKVector2(x, y)
     }
@@ -51,6 +66,10 @@ extension GLKVector3: GLKVectorProtocol {
     public static let unitY = GLKVector3(0, 1, 0)
     
     public static let unitZ = GLKVector3(0, 0, 1)
+    
+    public static prefix func -(a: GLKVector3) -> GLKVector3 {
+        GLKVector3Negate(a)
+    }
     
     public static func +(a: GLKVector3, b: GLKVector3) -> GLKVector3 {
         return GLKVector3Add(a, b)

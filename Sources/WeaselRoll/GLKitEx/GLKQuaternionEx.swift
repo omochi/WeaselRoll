@@ -5,6 +5,11 @@ extension GLKQuaternion {
         self = GLKQuaternionMake(x, y, z, w)
     }
     
+    public init(angle: Float, axis: GLKVector3) {
+        self = GLKQuaternionMakeWithAngleAndVector3Axis(GLKMathDegreesToRadians(angle),
+                                                        axis)
+    }
+    
     public init(elements e: [Float]) {
         self = GLKQuaternion(e[0], e[1], e[2], e[3])
     }
@@ -33,6 +38,12 @@ extension GLKQuaternion {
     
     public func rotate(_ vector: GLKVector3) -> GLKVector3 {
         GLKQuaternionRotateVector3(self, vector)
+    }
+    
+    public static let identity = GLKQuaternionIdentity
+    
+    public static prefix func -(a: GLKQuaternion) -> GLKQuaternion {
+        GLKQuaternionInvert(a)
     }
 }
 
