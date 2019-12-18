@@ -38,7 +38,9 @@ extension UIImage {
         }
     }
     
-    public func tinted(with color: UIColor) -> UIImage {
+    
+    /// 標準のtintとは異なり、グレーが指定色になり、白黒は保持される。
+    public func colored(_ color: UIColor) -> UIImage {
         return UIImage.render(size: size, scale: scale) { (context) in
             draw(in: bounds)
             
