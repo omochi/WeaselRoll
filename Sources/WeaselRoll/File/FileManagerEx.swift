@@ -1,6 +1,14 @@
 import Foundation
 
 extension FileManager {
+    public var documentDirectory: URL {
+        return urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+    
+    public var temporaryDirectory: URL {
+        return URL(fileURLWithPath: NSTemporaryDirectory())
+    }
+    
     public func fileExists(at file: URL) -> Bool {
         return fileExists(atPath: file.path)
     }
