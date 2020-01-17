@@ -1,6 +1,6 @@
 import CoreGraphics
 
-public struct IntSize: Hashable {
+public struct IntSize: Hashable, Codable, CustomStringConvertible {
     public var width: Int
     public var height: Int
     
@@ -21,5 +21,9 @@ public struct IntSize: Hashable {
     
     public var transposed: IntSize {
         IntSize(width: height, height: width)
+    }
+    
+    public var description: String {
+        return "\(width)x\(height)"
     }
 }

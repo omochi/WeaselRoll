@@ -1,6 +1,10 @@
 import Foundation
 
 extension FileManager {
+    public var permanentDirectory: URL {
+        return urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+    }
+    
     public var documentDirectory: URL {
         return urls(for: .documentDirectory, in: .userDomainMask).first!
     }
