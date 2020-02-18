@@ -69,7 +69,7 @@ extension GLKMatrix4: GLKMatrixProtocol {
     public func transform(_ vector: GLKVector3) -> GLKVector3 {
         GLKMatrix4MultiplyAndProjectVector3(self, vector)
     }
-    
+
     public var translation: GLKVector3 {
         column(at: 3).to3()
     }
