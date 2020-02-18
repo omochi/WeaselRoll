@@ -29,7 +29,7 @@ open class XIBComponentView: UIView {
     private func loadContentView() {
         precondition(contentView == nil)
         
-        var view = XIBComponentView._loadContentView(owner: self)
+        var view = Self._loadContentView(owner: self)
         
         if contentView != nil {
             view = contentView
