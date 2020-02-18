@@ -3,7 +3,7 @@ import GLKit
 
 extension CGPoint {
     public func toCGSize() -> CGSize {
-        return CGSize(width: x, height: y)
+        CGSize(width: x, height: y)
     }
     
     public func toGLKVector() -> GLKVector2 {
@@ -11,7 +11,7 @@ extension CGPoint {
     }
     
     public static func +(a: CGPoint, b: CGSize) -> CGPoint {
-        return CGPoint(x: a.x + b.width, y: a.y + b.height)
+        CGPoint(x: a.x + b.width, y: a.y + b.height)
     }
     
     public static func +=(a: inout CGPoint, b: CGSize) {
@@ -19,7 +19,7 @@ extension CGPoint {
     }
     
     public static func -(a: CGPoint, b: CGSize) -> CGPoint {
-        return CGPoint(x: a.x - b.width, y: a.y - b.height)
+        CGPoint(x: a.x - b.width, y: a.y - b.height)
     }
     
     public static func -=(a: inout CGPoint, b: CGSize) {
@@ -27,35 +27,43 @@ extension CGPoint {
     }
     
     public static func -(a: CGPoint, b: CGPoint) -> CGSize {
-        return CGSize(width: a.x - b.x, height: a.y - b.y)
+        CGSize(width: a.x - b.x, height: a.y - b.y)
     }
     
     public static func *(a: CGFloat, b: CGPoint) -> CGPoint {
-        return CGPoint(x: a * b.x, y: a * b.y)
+        CGPoint(x: a * b.x, y: a * b.y)
     }
     
     public static func *(a: CGPoint, b: CGFloat) -> CGPoint {
-        return b * a
+        b * a
     }
     
     public static func *=(a: inout CGPoint, b: CGFloat) {
         a = a * b
     }
+    
+    public static func /(a: CGPoint, b: CGFloat) -> CGPoint {
+        CGPoint(x: a.x / b, y: a.y / b)
+    }
+    
+    public static func /=(a: inout CGPoint, b: CGFloat) {
+        a = a / b
+    }    
 }
 
 extension CGSize {
     public var transposed: CGSize {
-        return CGSize(width: height, height: width)
+        CGSize(width: height, height: width)
     }
     
     public func fit(width: CGFloat) -> CGSize {
-        return CGSize(width: width,
-                      height: width * self.height / self.width)
+        CGSize(width: width,
+               height: width * self.height / self.width)
     }
     
     public func fit(height: CGFloat) -> CGSize {
-        return CGSize(width: height * self.width / self.height,
-                      height: height)
+        CGSize(width: height * self.width / self.height,
+               height: height)
     }
     
     public func fit(size: CGSize) -> CGSize {
@@ -107,11 +115,11 @@ extension CGSize {
     }
     
     public func toCGPoint() -> CGPoint {
-        return CGPoint(x: width, y: height)
+        CGPoint(x: width, y: height)
     }
     
     public static func +(a: CGSize, b: CGSize) -> CGSize {
-        return CGSize(width: a.width + b.width, height: a.height + b.height)
+        CGSize(width: a.width + b.width, height: a.height + b.height)
     }
     
     public static func +=(a: inout CGSize, b: CGSize) {
@@ -119,7 +127,7 @@ extension CGSize {
     }
     
     public static func -(a: CGSize, b: CGSize) -> CGSize {
-        return CGSize(width: a.width - b.width, height: a.height - b.height)
+        CGSize(width: a.width - b.width, height: a.height - b.height)
     }
     
     public static func -=(a: inout CGSize, b: CGSize) {
@@ -127,7 +135,7 @@ extension CGSize {
     }
     
     public static func *(a: CGSize, b: CGFloat) -> CGSize {
-        return b * a
+        b * a
     }
     
     public static func *=(a: inout CGSize, b: CGFloat) {
@@ -135,11 +143,11 @@ extension CGSize {
     }
     
     public static func *(a: CGFloat, b: CGSize) -> CGSize {
-        return CGSize(width: a * b.width, height: a * b.height)
+        CGSize(width: a * b.width, height: a * b.height)
     }
 
     public static func /(a: CGSize, b: CGFloat) -> CGSize {
-        return CGSize(width: a.width / b, height: a.height / b)
+        CGSize(width: a.width / b, height: a.height / b)
     }
     
     public static func /=(a: inout CGSize, b: CGFloat) {
@@ -154,10 +162,10 @@ extension CGRect {
     }
     
     public var center: CGPoint {
-        return origin + size / 2
+        origin + size / 2
     }
     
     public var end: CGPoint {
-        return origin + size
+        origin + size
     }
 }
