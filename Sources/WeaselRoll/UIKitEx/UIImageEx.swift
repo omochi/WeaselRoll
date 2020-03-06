@@ -8,14 +8,14 @@ extension UIImage {
     
     /**
      - Parameters:
-        - scale: 0はデバイス密度。
+        - scale: nilはデバイス密度。
      - Returns: sizeの縦か横が0だとnilになる。
      */
     public static func render(size: CGSize,
-                              scale: CGFloat,
+                              scale: CGFloat? = nil,
                               render: (CGContext) -> Void) -> UIImage?
     {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale ?? 0)
         defer { UIGraphicsEndImageContext() }
             
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -28,7 +28,7 @@ extension UIImage {
     }
     
     public static func filled(size: CGSize,
-                              scale: CGFloat,
+                              scale: CGFloat? = nil,
                               color: UIColor) -> UIImage?
     {
         return UIImage.render(size: size, scale: scale) { (context) in

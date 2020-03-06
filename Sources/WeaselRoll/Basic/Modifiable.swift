@@ -1,8 +1,4 @@
-public protocol Modifiable {
-    mutating func modify(_ f: (inout Self) throws -> Void) rethrows
-    
-    func modified(_ f: (inout Self) throws -> Void) rethrows -> Self
-}
+public protocol Modifiable {}
 
 extension Modifiable {
     public mutating func modify(_ f: (inout Self) throws -> Void) rethrows {

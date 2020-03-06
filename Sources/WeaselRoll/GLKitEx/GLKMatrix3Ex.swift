@@ -53,6 +53,25 @@ extension GLKMatrix3: GLKMatrixProtocol {
         GLKMatrix3SetColumn(self, Int32(index), column)
     }
     
+    public var determinant: Float {
+        let a11 = m00
+        let a12 = m10
+        let a13 = m20
+        let a21 = m01
+        let a22 = m11
+        let a23 = m21
+        let a31 = m02
+        let a32 = m12
+        let a33 = m22
+        
+        return a11 * a22 * a33
+            - a11 * a23 * a32
+            - a12 * a21 * a33
+            + a12 * a23 * a31
+            + a13 * a21 * a32
+            - a13 * a22 * a31
+    }
+    
     public static let identity = GLKMatrix3Identity
     
     public static func rotation(angle: Float, axis: GLKVector3) -> GLKMatrix3 {

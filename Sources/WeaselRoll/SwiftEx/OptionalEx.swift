@@ -17,7 +17,7 @@ extension Optional {
     }
     
     @discardableResult
-    public mutating func assume(_ f: () throws -> Wrapped) rethrows -> Wrapped {
+    public mutating func ensure(_ f: () throws -> Wrapped) rethrows -> Wrapped {
         if let x = self { return x }
         let x = try f()
         self = x
