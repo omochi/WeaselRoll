@@ -10,8 +10,8 @@ extension Date {
         f.timeZone = timeZone
         f.locale = locale
         return f.string(from: self)
-    }    
-    
+    }
+
     public static func +(a: Date, b: TimeInterval) -> Date {
         a.addingTimeInterval(b)
     }
