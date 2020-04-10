@@ -18,6 +18,14 @@ extension GLKVector2: GLKVectorProtocol {
     public var length: Float {
         GLKVector2Length(self)
     }
+
+    public func dot(_ other: GLKVector2) -> Float {
+        GLKVector2DotProduct(self, other)
+    }
+
+    public func cross(_ other: GLKVector2) -> Float {
+        x * other.y - y * other.x
+    }
     
     public func rawNormalized() -> GLKVector2 {
         GLKVector2Normalize(self)
