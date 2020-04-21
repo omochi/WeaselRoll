@@ -1,5 +1,6 @@
-import UIKit
+#if os(iOS)
 
+import UIKit
 
 extension UIImage {
     public var bounds: CGRect {
@@ -103,3 +104,5 @@ extension UIImage {
         }!
     }
 }
+
+#endif

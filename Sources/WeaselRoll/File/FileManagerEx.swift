@@ -25,6 +25,11 @@ extension FileManager {
         return ret
     }
 
+    public func directoryExists(at file: URL) -> Bool {
+        var isDir = false
+        return fileExists(at: file, isDirectory: &isDir) && isDir
+    }
+
     public func createFile(at file: URL, contents: Data?, attributes: [FileAttributeKey: Any]? = nil) -> Bool {
         createFile(atPath: file.path, contents: contents, attributes: attributes)
     }
