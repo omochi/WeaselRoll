@@ -67,3 +67,16 @@ extension GLKVector2: GLKVectorProtocol {
         GLKVector2MultiplyScalar(b, a)
     }
 }
+
+extension PointProtocol where Element: BinaryFloatingPoint {
+    public func toGLKVector() -> GLKVector2 {
+        GLKVector2(Float(x), Float(y))
+    }
+}
+
+extension SizeProtocol where Element: BinaryFloatingPoint {
+    public func toGLKVector() -> GLKVector2 {
+        GLKVector2(Float(width), Float(height))
+    }
+}
+
