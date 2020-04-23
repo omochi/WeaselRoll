@@ -3,7 +3,9 @@ import Foundation
 extension JSONDecoder {
     public static let shared: JSONDecoder = {
         let c = JSONDecoder()
-        c.dateDecodingStrategy = .iso8601
+        if #available(OSX 10.12, iOS 10.0, *) {
+            c.dateDecodingStrategy = .iso8601
+        }
         return c
     }()
 }
@@ -11,7 +13,9 @@ extension JSONDecoder {
 extension JSONEncoder {
     public static let shared: JSONEncoder = {
         let c = JSONEncoder()
-        c.dateEncodingStrategy = .iso8601
+        if #available(OSX 10.12, iOS 10.0, *) {
+            c.dateEncodingStrategy = .iso8601
+        }
         return c
     }()
 }
