@@ -217,6 +217,14 @@ extension GLKMatrix4: GLKMatrixProtocol {
                            0, 0, -1, 0)
         return m
     }
+
+    public static func rectTransformation(from: CGRect, to: CGRect, flipY: Bool = false) -> GLKMatrix4 {
+        GLKMatrix4.translation(to.center.toGLKVector().to3(z: 0)) *
+            GLKMatrix4.scale(GLKVector3(Float(to.width) / Float(from.width),
+                                        (flipY ? -1 : 1) * Float(to.height) / Float(from.height),
+                                        1)) *
+            GLKMatrix4.translation(-from.center.toGLKVector().to3(z: 0))
+    }
     
     public static func *(a: GLKMatrix4, b: GLKMatrix4) -> GLKMatrix4 {
         GLKMatrix4Multiply(a, b)
