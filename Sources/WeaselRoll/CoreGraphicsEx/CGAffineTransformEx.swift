@@ -4,7 +4,6 @@ extension CGAffineTransform {
     public static func *(a: CGAffineTransform, b: CGAffineTransform) -> CGAffineTransform {
         a.concatenating(b)
     }
-
     public static func *=(a: inout CGAffineTransform, b: CGAffineTransform) {
         a = a * b
     }
@@ -12,8 +11,21 @@ extension CGAffineTransform {
     public static func *(a: CGPoint, b: CGAffineTransform) -> CGPoint {
         a.applying(b)
     }
-
     public static func *=(a: inout CGPoint, b: CGAffineTransform) {
+        a = a * b
+    }
+
+    public static func *(a: CGSize, b: CGAffineTransform) -> CGSize {
+        a.applying(b)
+    }
+    public static func *=(a: inout CGSize, b: CGAffineTransform) {
+        a = a * b
+    }
+
+    public static func *(a: CGRect, b: CGAffineTransform) -> CGRect {
+        a.applying(b)
+    }
+    public static func *=(a: inout CGRect, b: CGAffineTransform) {
         a = a * b
     }
 }

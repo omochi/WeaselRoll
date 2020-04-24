@@ -4,7 +4,15 @@ import UIKit
 
 extension UIImage {
     public var bounds: CGRect {
-        return CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    }
+
+    public var width: CGFloat {
+        size.width
+    }
+
+    public var height: CGFloat {
+        size.height
     }
 
     public convenience init?(contentsOf file: URL) {
