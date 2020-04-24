@@ -21,6 +21,22 @@ extension RectProtocol {
         "\(x), \(y), \(width)x\(height)"
     }
 
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.singleValueContainer()
+        let array = try c.decode([Element].self)
+        guard array.count >= 4 else {
+            throw DecodingError.dataCorruptedError(in: c,
+                                                   debugDescription: "array.count < 4")
+        }
+        self.init(x: array[0], y: array[1], width: array[2], height: array[3])
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var c = encoder.singleValueContainer()
+        let array = [x, y, width, height]
+        try c.encode(array)
+    }
+
     public var x: Element {
         origin.x
     }
