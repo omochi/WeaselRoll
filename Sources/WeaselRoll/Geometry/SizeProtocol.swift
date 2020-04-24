@@ -76,7 +76,6 @@ extension SizeProtocol {
     public var transposed: Self {
         Self(height, width)
     }
-
 }
 
 extension SizeProtocol where Element: FloatingPoint {

@@ -42,8 +42,7 @@ extension UIImage {
             context.fill(bounds)
         }
     }
-    
-    
+
     /// 標準のtintとは異なり、グレーが指定色になり、白黒は保持される。
     public func colored(_ color: UIColor) -> UIImage {
         return UIImage.render(size: size, scale: scale) { (context) in
@@ -105,6 +104,15 @@ extension UIImage {
             }
             
             self.draw(in: bounds)
+        }!
+    }
+
+    public func rotated(angle: Angle90) -> UIImage {
+        let newSize =  angle.rotate(size: size)
+        return UIImage.render(size: newSize, scale: scale) { (context) in
+            let tr = angle.toImageRotation(size: size)
+            context.concatenate(tr)
+            self.draw(at: .zero)
         }!
     }
 }
