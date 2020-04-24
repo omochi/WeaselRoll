@@ -12,6 +12,12 @@ extension Date {
         return f.string(from: self)
     }
 
+    public func formatForLogFileName(timeZone: TimeZone = .current) -> String {
+        return format("yyyyMMdd-HHmmss",
+                      timeZone: timeZone,
+                      locale: Locale(identifier: "en_US_POSIX"))
+    }
+
     public static func +(a: Date, b: TimeInterval) -> Date {
         a.addingTimeInterval(b)
     }

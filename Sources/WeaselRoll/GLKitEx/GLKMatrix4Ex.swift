@@ -231,8 +231,8 @@ extension GLKMatrix4: GLKMatrixProtocol {
             b: CGFloat(get(at: 1, 0)),
             c: CGFloat(get(at: 0, 1)),
             d: CGFloat(get(at: 1, 1)),
-            tx: CGFloat(get(at: 3, 0)),
-            ty: CGFloat(get(at: 3, 1))
+            tx: CGFloat(get(at: 0, 3)),
+            ty: CGFloat(get(at: 1, 3))
         )
     }
 
