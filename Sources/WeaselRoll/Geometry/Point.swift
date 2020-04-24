@@ -1,6 +1,7 @@
 public struct Point: PointProtocol {
     public typealias Element = Float
     public typealias SizeType = Size
+    public typealias RectType = Rect
 
     public var x: Float
     public var y: Float

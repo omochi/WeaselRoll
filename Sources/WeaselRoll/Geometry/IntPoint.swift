@@ -1,6 +1,7 @@
 public struct IntPoint: PointProtocol {
     public typealias Element = Int
     public typealias SizeType = IntSize
+    public typealias RectType = IntRect
 
     public var x: Int
     public var y: Int

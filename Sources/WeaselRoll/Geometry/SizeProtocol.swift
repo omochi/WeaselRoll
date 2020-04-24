@@ -98,3 +98,10 @@ extension SizeProtocol where Element: FloatingPoint {
     }
 }
 
+extension SizeProtocol where Element: BinaryFloatingPoint {
+    public func to<T: SizeProtocol>(type: T.Type) -> T where
+        T.Element: BinaryFloatingPoint
+    {
+        T(T.Element(width), T.Element(height))
+    }
+}

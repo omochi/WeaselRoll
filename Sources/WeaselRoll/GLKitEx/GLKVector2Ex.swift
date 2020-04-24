@@ -34,11 +34,7 @@ extension GLKVector2: GLKVectorProtocol {
     public func interpolate(to other: GLKVector2, rate: Float) -> GLKVector2 {
         GLKVector2Lerp(self, other, rate)
     }
-    
-    public func toCGPoint() -> CGPoint {
-        CGPoint(x: CGFloat(x), y: CGFloat(y))
-    }
-    
+
     public func to3(z: Float) -> GLKVector3 {
         GLKVector3(x, y, z)
     }
@@ -65,6 +61,14 @@ extension GLKVector2: GLKVectorProtocol {
     
     public static func *(a: Float, b: GLKVector2) -> GLKVector2 {
         GLKVector2MultiplyScalar(b, a)
+    }
+
+    public func toCGPoint() -> CGPoint {
+        CGPoint(x: CGFloat(x), y: CGFloat(y))
+    }
+
+    public func toPoint() -> Point {
+        Point(x, y)
     }
 }
 

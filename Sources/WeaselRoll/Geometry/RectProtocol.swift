@@ -89,6 +89,16 @@ extension RectProtocol {
     }
 }
 
+extension Array where Element: PointProtocol, Element.Element: Comparable {
+    public func bounding() -> Element.RectType {
+        let x0 = map { $0.x }.min()!
+        let x1 = map { $0.x }.max()!
+        let y0 = map { $0.y }.min()!
+        let y1 = map { $0.y }.max()!
+        return Element.RectType(x: x0, y: y0, width: x1 - x0, height: y1 - y0)
+    }
+}
+
 extension RectProtocol where Element: FloatingPoint {
     public init(center: PointType, size: SizeType) {
         self.init(origin: center - size / 2,
@@ -105,5 +115,14 @@ extension RectProtocol where Element: FloatingPoint {
 
     public var center: PointType {
         origin + size / 2
+    }
+}
+
+extension RectProtocol where Element: BinaryFloatingPoint {
+    public func to<T: RectProtocol>(type: T.Type) -> T where
+        T.Element: BinaryFloatingPoint
+    {
+        T(origin: origin.to(type: T.PointType.self),
+          size: size.to(type: T.SizeType.self))
     }
 }

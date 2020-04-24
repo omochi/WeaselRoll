@@ -1,6 +1,7 @@
 public protocol PointProtocol: Hashable, CustomStringConvertible, Codable {
     associatedtype Element: SignedNumeric, Codable
     associatedtype SizeType: SizeProtocol where SizeType.Element == Self.Element
+    associatedtype RectType where RectType == SizeType.RectType
 
     var x: Element { get set }
     var y: Element { get set }
@@ -90,5 +91,13 @@ extension PointProtocol where Element: FloatingPoint {
 
     public static func /=(a: inout Self, b: Element) {
         a = a / b
+    }
+}
+
+extension PointProtocol where Element: BinaryFloatingPoint {
+    public func to<T: PointProtocol>(type: T.Type) -> T where
+        T.Element: BinaryFloatingPoint
+    {
+        T(T.Element(x), T.Element(y))
     }
 }

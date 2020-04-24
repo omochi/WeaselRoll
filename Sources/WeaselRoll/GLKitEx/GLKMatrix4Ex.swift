@@ -177,15 +177,15 @@ extension GLKMatrix4: GLKMatrixProtocol {
     }
     
     public static func rotation(angle: Float, axis: GLKVector3) -> GLKMatrix4 {
-        return GLKMatrix4MakeRotation(GLKMathDegreesToRadians(angle), axis.x, axis.y, axis.z)
+        GLKMatrix4MakeRotation(GLKMathDegreesToRadians(angle), axis.x, axis.y, axis.z)
     }
     
     public static func rotation(_ quaternion: GLKQuaternion) -> GLKMatrix4 {
-        return GLKMatrix4MakeWithQuaternion(quaternion)
+        GLKMatrix4MakeWithQuaternion(quaternion)
     }
     
     public static func scale(_ s: GLKVector3) -> GLKMatrix4 {
-        return GLKMatrix4MakeScale(s.x, s.y, s.z)
+        GLKMatrix4MakeScale(s.x, s.y, s.z)
     }
     
     public static func lookAt(position: GLKVector3,
@@ -217,16 +217,16 @@ extension GLKMatrix4: GLKMatrixProtocol {
     }
     
     public static func *(a: GLKMatrix4, b: GLKMatrix4) -> GLKMatrix4 {
-        return GLKMatrix4Multiply(a, b)
+        GLKMatrix4Multiply(a, b)
     }
     
     public static func *(a: GLKMatrix4, b: GLKVector4) -> GLKVector4 {
-        return GLKMatrix4MultiplyVector4(a, b)
+        GLKMatrix4MultiplyVector4(a, b)
     }
 
     // CGAffineTransformは行ベクトルに右からかける用なので転置する
     public func toCGAffineTransform() -> CGAffineTransform {
-        return CGAffineTransform(
+        CGAffineTransform(
             a: CGFloat(get(at: 0, 0)),
             b: CGFloat(get(at: 1, 0)),
             c: CGFloat(get(at: 0, 1)),
@@ -234,6 +234,21 @@ extension GLKMatrix4: GLKMatrixProtocol {
             tx: CGFloat(get(at: 3, 0)),
             ty: CGFloat(get(at: 3, 1))
         )
+    }
+
+    public func transform<R: RectProtocol>(_ rect: R) -> [R.PointType] where
+        R.Element : BinaryFloatingPoint
+    {
+        let points: [R.PointType] = [
+            rect.topLeft,
+            rect.topRight,
+            rect.bottomLeft,
+            rect.bottomRight
+        ]
+
+        return points.map { (p) in
+            transform(p.toGLKVector().to3(z: 0)).to2().toPoint().to(type: R.PointType.self)
+        }
     }
 }
 
