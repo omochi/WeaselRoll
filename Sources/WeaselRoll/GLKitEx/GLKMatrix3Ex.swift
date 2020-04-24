@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import GLKit
 
 extension GLKMatrix3: GLKMatrixProtocol {
@@ -164,3 +166,5 @@ extension GLKMatrix3: GLKMatrixProtocol {
         return GLKMatrix3MultiplyVector3(a, b)
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import XCTest
 import GLKit
 import WeaselRoll
@@ -37,3 +39,5 @@ final class GLKitExTests: XCTestCase {
             .distance(to: GLKVector3(-1, 0, 1)), 0, accuracy: eps)
     }
 }
+
+#endif

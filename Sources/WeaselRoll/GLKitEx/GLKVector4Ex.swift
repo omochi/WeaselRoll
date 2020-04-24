@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import GLKit
 
 extension GLKVector4: GLKVectorProtocol {
@@ -62,3 +64,5 @@ extension GLKVector4: GLKVectorProtocol {
         return GLKVector4MultiplyScalar(b, a)
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import GLKit
 
 public protocol GLKMatrixProtocol: CustomStringConvertible {
@@ -45,3 +47,5 @@ extension GLKMatrixProtocol {
         a = a * b
     }
 }
+
+#endif
