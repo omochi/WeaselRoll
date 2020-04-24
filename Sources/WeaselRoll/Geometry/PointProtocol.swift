@@ -1,7 +1,9 @@
 public protocol PointProtocol: Hashable, CustomStringConvertible, Codable {
     associatedtype Element: SignedNumeric, Codable
-    associatedtype SizeType: SizeProtocol where SizeType.Element == Self.Element
-    associatedtype RectType where RectType == SizeType.RectType
+    associatedtype RectType: RectProtocol where
+        RectType.Element == Self.Element
+    associatedtype SizeType: SizeProtocol where
+        SizeType.Element == Self.Element
 
     var x: Element { get set }
     var y: Element { get set }
@@ -23,8 +25,9 @@ extension PointProtocol {
         let c = try decoder.singleValueContainer()
         let array = try c.decode([Element].self)
         guard array.count >= 2 else {
-            throw DecodingError.dataCorruptedError(in: c,
-                                                   debugDescription: "array.count < 2")
+            throw DecodingError.dataCorruptedError(
+                in: c,
+                debugDescription: "array.count < 2")
         }
         self.init(array[0], array[1])
     }

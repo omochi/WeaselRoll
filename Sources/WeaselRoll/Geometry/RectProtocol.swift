@@ -1,7 +1,9 @@
 public protocol RectProtocol: Hashable, CustomStringConvertible, Codable {
-    associatedtype Element
-    associatedtype PointType: PointProtocol where PointType.Element == Self.Element
-    associatedtype SizeType where SizeType == PointType.SizeType
+    associatedtype Element: Hashable
+    associatedtype PointType: PointProtocol where
+        PointType.Element == Self.Element
+    associatedtype SizeType: SizeProtocol where
+        SizeType.Element == Self.Element
 
     var origin: PointType { get set }
     var size: SizeType { get set }
@@ -25,8 +27,9 @@ extension RectProtocol {
         let c = try decoder.singleValueContainer()
         let array = try c.decode([Element].self)
         guard array.count >= 4 else {
-            throw DecodingError.dataCorruptedError(in: c,
-                                                   debugDescription: "array.count < 4")
+            throw DecodingError.dataCorruptedError(
+                in: c,
+                debugDescription: "array.count < 4")
         }
         self.init(x: array[0], y: array[1], width: array[2], height: array[3])
     }
@@ -115,7 +118,10 @@ extension Array where Element: PointProtocol, Element.Element: Comparable {
     }
 }
 
-extension RectProtocol where Element: FloatingPoint {
+extension RectProtocol where
+    Element: FloatingPoint,
+    SizeType == PointType.SizeType
+{
     public init(center: PointType, size: SizeType) {
         self.init(origin: center - size / 2,
                   size: size)

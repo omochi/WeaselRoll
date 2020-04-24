@@ -237,7 +237,7 @@ extension GLKMatrix4: GLKMatrixProtocol {
     }
 
     public func transform<R: RectProtocol>(_ rect: R) -> [R.PointType] where
-        R.Element : BinaryFloatingPoint
+        R.Element: BinaryFloatingPoint
     {
         let points: [R.PointType] = [
             rect.topLeft,

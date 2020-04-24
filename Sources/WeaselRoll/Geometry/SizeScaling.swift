@@ -29,6 +29,12 @@ extension SizeProtocol where Element: FloatingPoint {
         }
     }
 
+}
+
+extension SizeProtocol where
+    Element: FloatingPoint,
+    RectType.SizeType == Self
+{
     public func fit(widthOf bounds: RectType) -> RectType {
         let size = self.fit(width: bounds.width)
         var origin = bounds.origin

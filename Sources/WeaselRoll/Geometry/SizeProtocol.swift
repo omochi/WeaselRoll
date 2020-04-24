@@ -1,9 +1,9 @@
 public protocol SizeProtocol: Hashable, CustomStringConvertible, Codable {
-    associatedtype Element: Hashable
-    associatedtype PointType where PointType.Element == Self.Element
-    associatedtype RectType: RectProtocol where RectType.Element == Self.Element,
-    RectType.PointType == PointType,
-    RectType.SizeType == Self
+    associatedtype Element
+    associatedtype PointType: PointProtocol where
+        PointType.Element == Self.Element
+    associatedtype RectType: RectProtocol where
+        RectType.Element == Self.Element
 
     var width: Element { get set }
     var height: Element { get set }
@@ -21,8 +21,9 @@ extension SizeProtocol {
         let c = try decoder.singleValueContainer()
         let array = try c.decode([Element].self)
         guard array.count >= 2 else {
-            throw DecodingError.dataCorruptedError(in: c,
-                                                   debugDescription: "array.count < 2")
+            throw DecodingError.dataCorruptedError(
+                in: c,
+                debugDescription: "array.count < 2")
         }
         self.init(array[0], array[1])
     }
