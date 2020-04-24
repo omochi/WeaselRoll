@@ -2,6 +2,7 @@ import CoreGraphics
 
 extension CGRect: RectProtocol {
     public typealias Element = CGFloat
+    public typealias PointType = CGPoint
     public typealias SizeType = CGSize
 }
 

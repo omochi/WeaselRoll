@@ -1,5 +1,6 @@
 public struct Rect: RectProtocol {
     public typealias Element = Float
+    public typealias PointType = Point
     public typealias SizeType = Size
 
     public var origin: Point
