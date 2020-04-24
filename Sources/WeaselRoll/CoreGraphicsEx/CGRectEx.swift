@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 extension CGRect: RectProtocol {
@@ -17,3 +19,5 @@ extension RectProtocol where Element: BinaryInteger {
         CGRect(origin: origin.toCGPoint(), size: size.toCGSize())
     }
 }
+
+#endif

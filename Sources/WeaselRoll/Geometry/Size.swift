@@ -1,5 +1,3 @@
-import CoreGraphics
-
 public struct Size: SizeProtocol {
     public typealias Element = Float
     public typealias PointType = Point

@@ -1,5 +1,3 @@
-import CoreGraphics
-
 public enum Angle90: Int {
     case minus90 = -90
     case _0 = 0

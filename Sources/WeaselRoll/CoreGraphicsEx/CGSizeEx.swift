@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 extension CGSize: SizeProtocol {
@@ -21,3 +23,5 @@ extension SizeProtocol where Element: BinaryInteger {
         CGSize(CGFloat(width), CGFloat(height))
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import GLKit
 import CoreGraphics
 
@@ -264,3 +266,4 @@ extension CGAffineTransform {
     }
 }
 
+#endif

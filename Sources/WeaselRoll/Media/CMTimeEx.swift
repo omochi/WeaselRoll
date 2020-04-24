@@ -1,3 +1,5 @@
+#if canImport(CoreMedia)
+
 import CoreMedia
 
 extension Rational {
@@ -15,3 +17,5 @@ extension CMTime {
         return Rational(value: value, scale: scale)
     }
 }
+
+#endif

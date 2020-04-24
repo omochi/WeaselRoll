@@ -1,3 +1,5 @@
+#if canImport(CoreMedia)
+
 import CoreMedia
 
 extension IntSize {
@@ -11,3 +13,6 @@ extension CMVideoDimensions {
         return IntSize(Int(width), Int(height))
     }
 }
+
+#endif
+

@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 extension CGAffineTransform {
@@ -48,3 +50,5 @@ extension Angle90 {
         }
     }
 }
+
+#endif

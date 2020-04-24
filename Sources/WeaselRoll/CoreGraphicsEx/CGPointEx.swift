@@ -1,3 +1,5 @@
+#if canImport(CoreGraphics)
+
 import CoreGraphics
 
 extension CGPoint: PointProtocol {
@@ -21,3 +23,5 @@ extension PointProtocol where Element: BinaryInteger {
         CGPoint(CGFloat(x), CGFloat(y))
     }
 }
+
+#endif
