@@ -78,11 +78,17 @@ extension SizeProtocol {
     }
 }
 
-extension SizeProtocol where Element: FloatingPoint {
+extension SizeProtocol where Element: Comparable {
+    public var isLandscape: Bool {
+        width > height
+    }
+
     public func isWiderThan(_ other: Self) -> Bool {
         width * other.height >= other.width * height
     }
+}
 
+extension SizeProtocol where Element: FloatingPoint {
     public static func /(a: Self, b: Element) -> Self {
         Self(a.width / b, a.height / b)
     }
