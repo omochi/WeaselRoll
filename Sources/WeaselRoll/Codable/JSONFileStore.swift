@@ -1,21 +1,52 @@
 import Foundation
 
-public final class JSONFileStore<T: Codable> {
-    public typealias Value = T
+public final class JSONFileStore<Value: Codable> {
+    public typealias Value = Value
     private let file: URL
-    private var value: T
-
-    public init(file: URL, defaultValue: T) throws {
-        self.file = file
-        self.value = try T.loadFromJSONIfExists(file: file) ?? defaultValue
+    private let defaultValue: Value
+    private var cache: Value?
+    public var isCacheEnabled: Bool {
+        didSet {
+            if !isCacheEnabled {
+                discardCache()
+            }
+        }
     }
-    
-    public func load() -> T {
+
+    public init(file: URL, defaultValue: Value, isCacheEnabled: Bool = false) {
+        self.file = file
+        self.defaultValue = defaultValue
+        self.isCacheEnabled = isCacheEnabled
+    }
+
+    public convenience init<T>(file: URL, isCacheEnabled: Bool = false) where T? == Value {
+        self.init(file: file, defaultValue: nil, isCacheEnabled: isCacheEnabled)
+    }
+
+    public func load() throws -> Value {
+        if let cache = self.cache {
+            return cache
+        }
+
+        let value = try Value.loadFromJSONIfExists(file: file) ?? defaultValue
+
+        if isCacheEnabled {
+            self.cache = value
+        }
+
         return value
     }
-    
-    public func store(_ value: T) throws {
-        self.value = value
+
+    public func store(_ value: Value) throws {
         try value.storeToJSON(file: file)
+
+        if isCacheEnabled {
+            self.cache = value
+        }
+    }
+
+    public func discardCache() {
+        cache = nil
     }
 }
+
