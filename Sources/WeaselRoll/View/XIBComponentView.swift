@@ -7,12 +7,12 @@ open class XIBComponentView: UIView {
 
     @IBInspectable public var doesHitSelf: Bool = false
     
-    public convenience init() {
+    public convenience required init() {
         self.init(frame: .zero)
         frame = contentViewOriginalFrame
     }
 
-    public override init(frame: CGRect) {
+    public override required init(frame: CGRect) {
         super.init(frame: frame)
         loadContentView()
         didInit()
