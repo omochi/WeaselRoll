@@ -20,6 +20,16 @@ extension UIView {
             bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+
+    public var ancestors: [UIView] {
+        var ret: [UIView] = []
+        var viewOrNone = self.superview
+        while let view = viewOrNone {
+            ret.append(view)
+            viewOrNone = view
+        }
+        return ret
+    }
     
     public func walk(_ cont: (UIView) -> Bool) {
         guard cont(self) else {
