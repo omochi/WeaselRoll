@@ -108,6 +108,30 @@ extension RectProtocol {
     }
 }
 
+extension RectProtocol where Element: Comparable {
+    public func intersection(_ other: Self) -> Self {
+        let x0 = max(left, other.left)
+        let x1 = min(right, other.right)
+        let y0 = max(top, other.top)
+        let y1 = min(bottom, other.bottom)
+        return Self(x: x0,
+                    y: y0,
+                    width: max(0, x1 - x0),
+                    height: max(0, y1 - y0))
+    }
+
+    public func union(_ other: Self) -> Self {
+        let x0 = min(left, other.left)
+        let x1 = max(right, other.right)
+        let y0 = min(top, other.top)
+        let y1 = max(bottom, other.bottom)
+        return Self(x: x0,
+                    y: y0,
+                    width: max(0, x1 - x0),
+                    height: max(0, y1 - y0))
+    }
+}
+
 extension Array where Element: PointProtocol, Element.Element: Comparable {
     public func bounding() -> Element.RectType {
         let x0 = map { $0.x }.min()!
