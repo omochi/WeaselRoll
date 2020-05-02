@@ -26,7 +26,7 @@ extension UIView {
         var viewOrNone = self.superview
         while let view = viewOrNone {
             ret.append(view)
-            viewOrNone = view
+            viewOrNone = view.superview
         }
         return ret
     }
