@@ -33,4 +33,12 @@ extension FileManager {
     public func createFile(at file: URL, contents: Data?, attributes: [FileAttributeKey: Any]? = nil) -> Bool {
         createFile(atPath: file.path, contents: contents, attributes: attributes)
     }
+
+    public func createDirectory(at directory: URL) throws {
+        try createDirectory(at: directory, withIntermediateDirectories: true, attributes: nil)
+    }
+
+    public func contentsOfDirectory(at directory: URL) throws -> [URL] {
+        try contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
+    }
 }

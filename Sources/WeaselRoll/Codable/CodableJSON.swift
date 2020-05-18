@@ -47,7 +47,7 @@ extension Encodable {
     public func storeToJSON(file: URL) throws {
         let data = try encodeToJSONData()
         let dir = file.deletingLastPathComponent()
-        try fm.createDirectory(at: dir, withIntermediateDirectories: true)
+        try fm.createDirectory(at: dir)
         try data.write(to: file, options: [.atomic])
     }
 }
