@@ -38,6 +38,8 @@ extension SizeProtocol {
         "\(width)x\(height)"
     }
 
+    public var area: Element { width * height }
+
     public static var zero: Self {
         Self(.zero, .zero)
     }
