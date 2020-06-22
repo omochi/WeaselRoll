@@ -2,6 +2,22 @@
 
 import UIKit
 
+extension UIImage.Orientation: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .up: return "up"
+        case .down: return "down"
+        case .left: return "left"
+        case .right: return "right"
+        case .upMirrored: return "upMirrored"
+        case .downMirrored: return "downMirrored"
+        case .leftMirrored: return "leftMirrored"
+        case .rightMirrored: return "rightMirrored"
+        @unknown default: return "unknown"
+        }
+    }
+}
+
 extension UIImage {
     public var bounds: CGRect {
         CGRect(x: 0, y: 0, width: size.width, height: size.height)

@@ -1,3 +1,5 @@
+infix operator ??=: AssignmentPrecedence
+
 extension Optional {
     public func orThrow(_ error: @autoclosure () -> Error) throws -> Wrapped {
         if let x = self {
@@ -22,5 +24,9 @@ extension Optional {
         let x = try f()
         self = x
         return x
+    }
+
+    public static func ??=(a: inout Self, b: Self) {
+        a = a ?? b
     }
 }

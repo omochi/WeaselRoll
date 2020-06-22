@@ -13,6 +13,7 @@ extension JSONDecoder {
 extension JSONEncoder {
     public static let shared: JSONEncoder = {
         let c = JSONEncoder()
+        c.outputFormatting = .prettyPrinted
         if #available(OSX 10.12, iOS 10.0, *) {
             c.dateEncodingStrategy = .iso8601
         }
