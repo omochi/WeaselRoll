@@ -8,11 +8,7 @@ extension FileManager {
     public var documentDirectory: URL {
         urls(for: .documentDirectory, in: .userDomainMask).first!
     }
-    
-    public var temporaryDirectory: URL {
-        URL(fileURLWithPath: NSTemporaryDirectory())
-    }
-    
+
     public func fileExists(at file: URL) -> Bool {
         fileExists(atPath: file.path)
     }
