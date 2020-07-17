@@ -50,3 +50,12 @@ public final class JSONFileStore<Value: Codable> {
     }
 }
 
+extension JSONFileStore where Value: Modifiable {
+    @discardableResult
+    public func modify(_ f: (inout Value) throws -> Void) throws -> Value {
+        var value = try load()
+        try f(&value)
+        try store(value)
+        return value
+    }
+}
