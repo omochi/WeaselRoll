@@ -1,7 +1,11 @@
 import Foundation
 
 extension Data {
-    public func debugStringForUTF8(limit: Int? = 1000) -> String {
+    public func toString(encoding: String.Encoding = .utf8) -> String? {
+        String(data: self, encoding: encoding)
+    }
+
+    public func toDebugStringForUTF8(limit: Int? = 1000) -> String {
         guard var str = String(data: self, encoding: .utf8) else {
             return "(size=\(count), content=<binary>)"
         }
