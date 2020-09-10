@@ -51,8 +51,8 @@ public final class Regex {
         }
     }
     
-    public init(pattern: String, options: NSRegularExpression.Options) {
-        self.nsRegex = try! NSRegularExpression(pattern: pattern, options: options)
+    public init(pattern: String, options: NSRegularExpression.Options) throws {
+        self.nsRegex = try NSRegularExpression(pattern: pattern, options: options)
     }
     
     public func match(string: String,
