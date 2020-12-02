@@ -35,7 +35,7 @@ public final class DateFormatISO8601 {
     }
     
     public init() {
-        self.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        self.calendar = .gregorian
     }
     
     public func format(date: Date, options: Options) -> String {
@@ -103,7 +103,7 @@ public final class DateParseISO8601 {
     private let calendar: Calendar
 
     public init() {
-        self.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        self.calendar = .gregorian
     }
     
     public func parse(_ string: String) -> Date? {
