@@ -1,7 +1,7 @@
 import Foundation
 
 extension DateFormatter {
-    convenience init(
+    public convenience init(
         calendar: Calendar,
         locale: Locale,
         timeZone: TimeZone,
@@ -14,7 +14,7 @@ extension DateFormatter {
         self.timeZone = timeZone
     }
 
-    static func logFileName(timeZone: TimeZone = .current) -> DateFormatter {
+    public static func logFileName(timeZone: TimeZone = .current) -> DateFormatter {
         return DateFormatter(
             calendar: .gregorian,
             locale: .posix,
