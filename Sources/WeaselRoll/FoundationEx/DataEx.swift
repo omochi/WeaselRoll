@@ -6,7 +6,7 @@ extension Data {
     }
 
     public func toDebugStringForUTF8(limit: Int? = 1000) -> String {
-        let str = String(decoding: self, as: UTF8.self)
+        var str = String(decoding: self, as: UTF8.self)
 
         if let limit = limit, str.count > limit {
             let end = str.index(str.startIndex, offsetBy: limit)
