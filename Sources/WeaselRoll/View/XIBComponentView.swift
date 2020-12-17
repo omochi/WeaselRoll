@@ -26,7 +26,7 @@ open class XIBComponentView: UIView {
     
     public var contentViewOriginalFrame: CGRect = .zero
 
-    public var nibName: String {
+    open var nibName: String {
         "\(type(of: self))"
     }
     
