@@ -25,11 +25,15 @@ open class XIBComponentView: UIView {
     }
     
     public var contentViewOriginalFrame: CGRect = .zero
+
+    public var nibName: String {
+        "\(type(of: self))"
+    }
     
     private func loadContentView() {
         precondition(contentView == nil)
         
-        var view = Self._loadContentView(owner: self)
+        var view = Self._loadContentView(nibName: self.nibName)
         
         if contentView != nil {
             view = contentView
@@ -41,8 +45,8 @@ open class XIBComponentView: UIView {
         setContentView(contentView)
     }
     
-    private static func _loadContentView(owner: UIView) -> UIView {
-        let objs_ = owner.bundle.loadNibNamed("\(type(of: owner))", owner: owner, options: nil)
+    private static func _loadContentView(nibName: String) -> UIView {
+        let objs_ = owner.bundle.loadNibNamed(nibName, owner: owner, options: nil)
         let objs = objs_!
         let obj = objs[0]
         let view = obj as! UIView
