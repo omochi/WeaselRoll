@@ -4,7 +4,7 @@ import UIKit
 
 extension UIEdgeInsets: Modifiable {}
 
-@available(iOS 11.0, *)
+@available(iOS 11.0, tvOS 11.0, *)
 extension NSDirectionalEdgeInsets: Modifiable {}
 
 #endif

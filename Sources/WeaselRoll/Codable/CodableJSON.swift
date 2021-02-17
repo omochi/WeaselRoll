@@ -3,7 +3,7 @@ import Foundation
 extension JSONDecoder {
     fileprivate static func create() -> JSONDecoder {
         let c = JSONDecoder()
-        if #available(OSX 10.12, iOS 10.0, *) {
+        if #available(OSX 10.12, iOS 10.0, tvOS 10.0, *) {
             c.dateDecodingStrategy = .iso8601
         }
         return c
@@ -14,7 +14,7 @@ extension JSONEncoder {
     fileprivate static func create(outputFormatting: JSONEncoder.OutputFormatting) -> JSONEncoder {
         let c = JSONEncoder()
         c.outputFormatting = outputFormatting
-        if #available(OSX 10.12, iOS 10.0, *) {
+        if #available(OSX 10.12, iOS 10.0, tvOS 10.0, *) {
             c.dateEncodingStrategy = .iso8601
         }
         return c
