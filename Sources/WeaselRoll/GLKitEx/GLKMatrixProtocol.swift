@@ -1,7 +1,10 @@
+#if canImport(GLKit)
+
 import GLKit
 
 public protocol GLKMatrixProtocol: CustomStringConvertible {
     associatedtype ColumnVector
+    associatedtype RowVector
     
     init(elements: [Float])
     
@@ -12,16 +15,19 @@ public protocol GLKMatrixProtocol: CustomStringConvertible {
     var transposed: Self { get }
     
     func rawInverted(isInvertible: inout Bool) -> Self
-    
-    func inverted() -> Self?
-    
+
     func column(at index: Int) -> ColumnVector
     mutating func setColumn(at index: Int, _ column: ColumnVector)
+
+    func row(at index: Int) -> RowVector
+    mutating func setRow(at index: Int, _ row: RowVector)
+
+    func get(at row: Int, _ column: Int) -> Float
+    mutating func set(at row: Int, _ column: Int, _ value: Float)
     
     static var identity: Self { get }
     
     static func *(a: Self, b: Self) -> Self
-    static func *=(a: inout Self, b: Self)
     
     static func *(a: Self, b: ColumnVector) -> ColumnVector
 }
@@ -41,3 +47,5 @@ extension GLKMatrixProtocol {
         a = a * b
     }
 }
+
+#endif

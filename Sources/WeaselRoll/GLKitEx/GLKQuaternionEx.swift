@@ -1,3 +1,5 @@
+#if canImport(GLKit)
+
 import GLKit
 
 extension GLKQuaternion {
@@ -52,3 +54,5 @@ extension GLKQuaternion: CustomStringConvertible {
         elements.description
     }
 }
+
+#endif

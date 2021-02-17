@@ -3,6 +3,10 @@
 /Packages
 /*.xcodeproj
 xcuserdata/
+<<<<<<< HEAD
 .swiftpm
 
 
+=======
+/.swiftpm
+>>>>>>> ff7a2382bf6fe6473313d27ca6c5f997c4ac8d4b

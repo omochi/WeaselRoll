@@ -35,7 +35,7 @@ public final class DateFormatISO8601 {
     }
     
     public init() {
-        self.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+        self.calendar = .gregorian
     }
     
     public func format(date: Date, options: Options) -> String {
@@ -95,14 +95,19 @@ public final class DateFormatISO8601 {
 }
 
 public final class DateParseISO8601 {
+    private static let regex: Regex = {
+        let pattern = "^(\\d+)[/-](\\d+)[/-](\\d+)[ T](\\d+)[:\\-](\\d+)[:\\-](\\d+)(?:\\.(\\d+))?(?:Z|(\\+|-)(\\d+):(\\d+))?$"
+        return try! Regex(pattern: pattern, options: [])
+    }()
+
+    private let calendar: Calendar
+
     public init() {
-        self.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-        let regexStr = "^(\\d+)[/-](\\d+)[/-](\\d+)[ T](\\d+)[:\\-](\\d+)[:\\-](\\d+)(?:\\.(\\d+))?(?:Z|(\\+|-)(\\d+):(\\d+))?$"
-        self.regex = Regex(pattern: regexStr, options: [])
+        self.calendar = .gregorian
     }
     
     public func parse(_ string: String) -> Date? {
-        guard let match = regex.match(string: string, options: []) else {
+        guard let match = Self.regex.match(string: string, options: []) else {
             return nil
         }
         
@@ -165,8 +170,5 @@ public final class DateParseISO8601 {
         
         return calendar.date(from: components)!
     }
-    
-    private let calendar: Calendar
-    private let regex: Regex
 }
 

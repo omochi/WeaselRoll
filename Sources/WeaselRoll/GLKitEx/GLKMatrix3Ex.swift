@@ -1,22 +1,28 @@
+#if canImport(GLKit)
+
 import GLKit
 
 extension GLKMatrix3: GLKMatrixProtocol {
     public typealias ColumnVector = GLKVector3
+    public typealias RowVector = GLKVector3
     
     public init(_ e00: Float, _ e01: Float, _ e02: Float,
                 _ e10: Float, _ e11: Float, _ e12: Float,
                 _ e20: Float, _ e21: Float, _ e22: Float)
     {
-        let m = GLKMatrix3Make(e00, e01, e02,
-                               e10, e11, e12,
-                               e20, e21, e22)
-        self = m.transposed
+        self = GLKMatrix3Make(
+            e00, e10, e20,
+            e01, e11, e21,
+            e02, e12, e22
+        )
     }
     
     public init(elements e: [Float]) {
-        self.init(e[0], e[1], e[2],
-                  e[3], e[4], e[5],
-                  e[6], e[7], e[8])
+        self.init(
+            e[0], e[1], e[2],
+            e[3], e[4], e[5],
+            e[6], e[7], e[8]
+        )
     }
     
     public init(columns c: [GLKVector3]) {
@@ -25,11 +31,10 @@ extension GLKMatrix3: GLKMatrixProtocol {
     
     public var elements: [Float] {
         get {
-            let m = self.transposed
             return [
-                m.m00, m.m01, m.m02,
-                m.m10, m.m11, m.m12,
-                m.m20, m.m21, m.m22
+                m00, m10, m20,
+                m01, m11, m21,
+                m02, m12, m22
             ]
         }
         set {
@@ -52,7 +57,73 @@ extension GLKMatrix3: GLKMatrixProtocol {
     public mutating func setColumn(at index: Int, _ column: ColumnVector) {
         GLKMatrix3SetColumn(self, Int32(index), column)
     }
-    
+
+    public func row(at index: Int) -> GLKVector3 {
+        GLKMatrix3GetRow(self, Int32(index))
+    }
+
+    public mutating func setRow(at index: Int, _ row: GLKVector3) {
+        GLKMatrix3SetRow(self, Int32(index), row)
+    }
+
+
+    public func get(at row: Int, _ column: Int) -> Float {
+        switch row {
+        case 0:
+            switch column {
+            case 0: return m00
+            case 1: return m10
+            case 2: return m20
+            default: break
+            }
+        case 1:
+            switch column {
+            case 0: return m01
+            case 1: return m11
+            case 2: return m21
+            default: break
+            }
+        case 2:
+            switch column {
+            case 0: return m02
+            case 1: return m12
+            case 2: return m22
+            default: break
+            }
+        default: break
+        }
+        preconditionFailure("invalid position: \(row), \(column)")
+    }
+
+    public mutating func set(at row: Int, _ column: Int, _ value: Float) {
+        switch row {
+        case 0:
+            switch column {
+            case 0: m00 = value; return
+            case 1: m10 = value; return
+            case 2: m20 = value; return
+            default: break
+            }
+        case 1:
+            switch column {
+            case 0: m01 = value; return
+            case 1: m11 = value; return
+            case 2: m21 = value; return
+            default: break
+            }
+        case 2:
+            switch column {
+            case 0: m02 = value; return
+            case 1: m12 = value; return
+            case 2: m22 = value; return
+            default: break
+            }
+        default: break
+        }
+        preconditionFailure("invalid position: \(row), \(column)")
+    }
+
+
     public var determinant: Float {
         let a11 = m00
         let a12 = m10
@@ -95,3 +166,5 @@ extension GLKMatrix3: GLKMatrixProtocol {
         return GLKMatrix3MultiplyVector3(a, b)
     }
 }
+
+#endif

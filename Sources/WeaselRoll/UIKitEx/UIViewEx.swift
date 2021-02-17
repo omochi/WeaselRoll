@@ -1,4 +1,4 @@
-#if os(iOS)
+#if canImport(UIKit)
 
 import UIKit
 
@@ -19,6 +19,16 @@ extension UIView {
             rightAnchor.constraint(equalTo: view.rightAnchor),
             bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+
+    public var ancestors: [UIView] {
+        var ret: [UIView] = []
+        var viewOrNone = self.superview
+        while let view = viewOrNone {
+            ret.append(view)
+            viewOrNone = view.superview
+        }
+        return ret
     }
     
     public func walk(_ cont: (UIView) -> Bool) {

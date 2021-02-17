@@ -1,9 +1,38 @@
+#if canImport(UIKit)
+
 import UIKit
 
+extension UIImage.Orientation: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .up: return "up"
+        case .down: return "down"
+        case .left: return "left"
+        case .right: return "right"
+        case .upMirrored: return "upMirrored"
+        case .downMirrored: return "downMirrored"
+        case .leftMirrored: return "leftMirrored"
+        case .rightMirrored: return "rightMirrored"
+        @unknown default: return "unknown"
+        }
+    }
+}
 
 extension UIImage {
     public var bounds: CGRect {
-        return CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    }
+
+    public var width: CGFloat {
+        size.width
+    }
+
+    public var height: CGFloat {
+        size.height
+    }
+
+    public convenience init?(contentsOf file: URL) {
+        self.init(contentsOfFile: file.path)
     }
     
     /**
@@ -37,8 +66,7 @@ extension UIImage {
             context.fill(bounds)
         }
     }
-    
-    
+
     /// 標準のtintとは異なり、グレーが指定色になり、白黒は保持される。
     public func colored(_ color: UIColor) -> UIImage {
         return UIImage.render(size: size, scale: scale) { (context) in
@@ -102,4 +130,15 @@ extension UIImage {
             self.draw(in: bounds)
         }!
     }
+
+    public func rotated(angle: Angle90) -> UIImage {
+        let newSize =  angle.rotate(size: size)
+        return UIImage.render(size: newSize, scale: scale) { (context) in
+            let tr = angle.toImageRotation(size: size)
+            context.concatenate(tr)
+            self.draw(at: .zero)
+        }!
+    }
 }
+
+#endif

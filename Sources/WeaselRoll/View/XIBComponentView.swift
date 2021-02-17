@@ -1,4 +1,4 @@
-#if os(iOS)
+#if canImport(UIKit)
 
 import UIKit
 
@@ -7,12 +7,12 @@ open class XIBComponentView: UIView {
 
     @IBInspectable public var doesHitSelf: Bool = false
     
-    public convenience init() {
+    public convenience required init() {
         self.init(frame: .zero)
         frame = contentViewOriginalFrame
     }
 
-    public override init(frame: CGRect) {
+    public override required init(frame: CGRect) {
         super.init(frame: frame)
         loadContentView()
         didInit()
@@ -25,11 +25,18 @@ open class XIBComponentView: UIView {
     }
     
     public var contentViewOriginalFrame: CGRect = .zero
+
+    open var nibName: String {
+        "\(type(of: self))"
+    }
     
     private func loadContentView() {
         precondition(contentView == nil)
         
-        var view = Self._loadContentView(owner: self)
+        var view = Self._loadContentView(
+            nibName: self.nibName,
+            owner: self
+        )
         
         if contentView != nil {
             view = contentView
@@ -41,8 +48,8 @@ open class XIBComponentView: UIView {
         setContentView(contentView)
     }
     
-    private static func _loadContentView(owner: UIView) -> UIView {
-        let objs_ = owner.bundle.loadNibNamed("\(type(of: owner))", owner: owner, options: nil)
+    private static func _loadContentView(nibName: String, owner: UIView) -> UIView {
+        let objs_ = owner.bundle.loadNibNamed(nibName, owner: owner, options: nil)
         let objs = objs_!
         let obj = objs[0]
         let view = obj as! UIView

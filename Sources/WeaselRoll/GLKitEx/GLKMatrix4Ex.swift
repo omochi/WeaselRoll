@@ -1,25 +1,34 @@
-import GLKit
+#if canImport(GLKit)
 
+import GLKit
+import CoreGraphics
+
+// row major APIを提供する。
+// 内部表現は column major。
 extension GLKMatrix4: GLKMatrixProtocol {
     public typealias ColumnVector = GLKVector4
+    public typealias RowVector = GLKVector4
     
     public init(_ e00: Float, _ e01: Float, _ e02: Float, _ e03: Float,
                 _ e10: Float, _ e11: Float, _ e12: Float, _ e13: Float,
                 _ e20: Float, _ e21: Float, _ e22: Float, _ e23: Float,
                 _ e30: Float, _ e31: Float, _ e32: Float, _ e33: Float)
     {
-        let m = GLKMatrix4Make(e00, e01, e02, e03,
-                               e10, e11, e12, e13,
-                               e20, e21, e22, e23,
-                               e30, e31, e32, e33)
-        self = m.transposed
+        self = GLKMatrix4Make(
+            e00, e10, e20, e30,
+            e01, e11, e21, e31,
+            e02, e12, e22, e32,
+            e03, e13, e23, e33
+        )
     }
     
     public init(elements e: [Float]) {
-        self.init(e[0], e[1], e[2], e[3],
-                  e[4], e[5], e[6], e[7],
-                  e[8], e[9], e[10], e[11],
-                  e[12], e[13], e[14], e[15])
+        self.init(
+            e[0], e[1], e[2], e[3],
+            e[4], e[5], e[6], e[7],
+            e[8], e[9], e[10], e[11],
+            e[12], e[13], e[14], e[15]
+        )
     }
     
     public init(columns c: [GLKVector4]) {
@@ -37,12 +46,11 @@ extension GLKMatrix4: GLKMatrixProtocol {
     
     public var elements: [Float] {
         get {
-            let m = self.transposed
             return [
-                m.m00, m.m01, m.m02, m.m03,
-                m.m10, m.m11, m.m12, m.m13,
-                m.m20, m.m21, m.m22, m.m23,
-                m.m30, m.m31, m.m32, m.m33
+                m00, m10, m20, m30,
+                m01, m11, m21, m31,
+                m02, m12, m22, m32,
+                m03, m13, m23, m33
             ]
         }
         set {
@@ -65,7 +73,93 @@ extension GLKMatrix4: GLKMatrixProtocol {
     public mutating func setColumn(at index: Int, _ column: ColumnVector) {
         GLKMatrix4SetColumn(self, Int32(index), column)
     }
-    
+
+    public func row(at index: Int) -> GLKVector4 {
+        GLKMatrix4GetRow(self, Int32(index))
+    }
+
+    public mutating func setRow(at index: Int, _ row: GLKVector4) {
+        GLKMatrix4SetRow(self, Int32(index), row)
+    }
+
+    public func get(at row: Int, _ column: Int) -> Float {
+        switch row {
+        case 0:
+            switch column {
+            case 0: return m00
+            case 1: return m10
+            case 2: return m20
+            case 3: return m30
+            default: break
+            }
+        case 1:
+            switch column {
+            case 0: return m01
+            case 1: return m11
+            case 2: return m21
+            case 3: return m31
+            default: break
+            }
+        case 2:
+            switch column {
+            case 0: return m02
+            case 1: return m12
+            case 2: return m22
+            case 3: return m32
+            default: break
+            }
+        case 3:
+            switch column {
+            case 0: return m03
+            case 1: return m13
+            case 2: return m23
+            case 3: return m33
+            default: break
+            }
+        default: break
+        }
+        preconditionFailure("invalid position: \(row), \(column)")
+    }
+
+    public mutating func set(at row: Int, _ column: Int, _ value: Float) {
+        switch row {
+        case 0:
+            switch column {
+            case 0: m00 = value; return
+            case 1: m10 = value; return
+            case 2: m20 = value; return
+            case 3: m30 = value; return
+            default: break
+            }
+        case 1:
+            switch column {
+            case 0: m01 = value; return
+            case 1: m11 = value; return
+            case 2: m21 = value; return
+            case 3: m31 = value; return
+            default: break
+            }
+        case 2:
+            switch column {
+            case 0: m02 = value; return
+            case 1: m12 = value; return
+            case 2: m22 = value; return
+            case 3: m32 = value; return
+            default: break
+            }
+        case 3:
+            switch column {
+            case 0: m03 = value; return
+            case 1: m13 = value; return
+            case 2: m23 = value; return
+            case 3: m33 = value; return
+            default: break
+            }
+        default: break
+        }
+        preconditionFailure("invalid position: \(row), \(column)")
+    }
+
     public func transform(_ vector: GLKVector3) -> GLKVector3 {
         GLKMatrix4MultiplyAndProjectVector3(self, vector)
     }
@@ -85,15 +179,15 @@ extension GLKMatrix4: GLKMatrixProtocol {
     }
     
     public static func rotation(angle: Float, axis: GLKVector3) -> GLKMatrix4 {
-        return GLKMatrix4MakeRotation(GLKMathDegreesToRadians(angle), axis.x, axis.y, axis.z)
+        GLKMatrix4MakeRotation(GLKMathDegreesToRadians(angle), axis.x, axis.y, axis.z)
     }
     
     public static func rotation(_ quaternion: GLKQuaternion) -> GLKMatrix4 {
-        return GLKMatrix4MakeWithQuaternion(quaternion)
+        GLKMatrix4MakeWithQuaternion(quaternion)
     }
     
     public static func scale(_ s: GLKVector3) -> GLKMatrix4 {
-        return GLKMatrix4MakeScale(s.x, s.y, s.z)
+        GLKMatrix4MakeScale(s.x, s.y, s.z)
     }
     
     public static func lookAt(position: GLKVector3,
@@ -123,12 +217,61 @@ extension GLKMatrix4: GLKMatrixProtocol {
                            0, 0, -1, 0)
         return m
     }
+
+    public static func rectTransformation(from: CGRect, to: CGRect, flipY: Bool = false) -> GLKMatrix4 {
+        GLKMatrix4.translation(to.center.toGLKVector().to3(z: 0)) *
+            GLKMatrix4.scale(GLKVector3(Float(to.width) / Float(from.width),
+                                        (flipY ? -1 : 1) * Float(to.height) / Float(from.height),
+                                        1)) *
+            GLKMatrix4.translation(-from.center.toGLKVector().to3(z: 0))
+    }
     
     public static func *(a: GLKMatrix4, b: GLKMatrix4) -> GLKMatrix4 {
-        return GLKMatrix4Multiply(a, b)
+        GLKMatrix4Multiply(a, b)
     }
     
     public static func *(a: GLKMatrix4, b: GLKVector4) -> GLKVector4 {
-        return GLKMatrix4MultiplyVector4(a, b)
+        GLKMatrix4MultiplyVector4(a, b)
+    }
+
+    // CGAffineTransformは行ベクトルに右からかける用なので転置する
+    public func toCGAffineTransform() -> CGAffineTransform {
+        CGAffineTransform(
+            a: CGFloat(get(at: 0, 0)),
+            b: CGFloat(get(at: 1, 0)),
+            c: CGFloat(get(at: 0, 1)),
+            d: CGFloat(get(at: 1, 1)),
+            tx: CGFloat(get(at: 0, 3)),
+            ty: CGFloat(get(at: 1, 3))
+        )
+    }
+
+    public func transform<R: RectProtocol>(_ rect: R) -> [R.PointType] where
+        R.Element: BinaryFloatingPoint
+    {
+        let points: [R.PointType] = [
+            rect.topLeft,
+            rect.topRight,
+            rect.bottomLeft,
+            rect.bottomRight
+        ]
+
+        return points.map { (p) in
+            transform(p.toGLKVector().to3(z: 0)).to2().toPoint().to(type: R.PointType.self)
+        }
     }
 }
+
+extension CGAffineTransform {
+    // CGAffineTransformは行ベクトルに右からかける用なので転置する
+    public func toGLKMatrix4() -> GLKMatrix4 {
+        GLKMatrix4(
+            Float(a), Float(c), 0, Float(tx),
+            Float(b), Float(d), 0, Float(ty),
+            0, 0, 1, 0,
+            0, 0, 0, 1
+        )
+    }
+}
+
+#endif
