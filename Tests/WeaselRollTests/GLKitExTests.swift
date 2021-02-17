@@ -12,7 +12,7 @@ final class GLKitExTests: XCTestCase {
         let eps: Float = 1.0e-5
         
         
-        let nearTop: Float = tan(toRadian(15)) * 0.1
+        let nearTop: Float = tan(Angles.toRadian(15)) * 0.1
         let nearHeight: Float = nearTop * 2
         let nearWidth = nearHeight * 1920 / 1080
         let nearLeft = -nearWidth / 2
@@ -24,7 +24,7 @@ final class GLKitExTests: XCTestCase {
         XCTAssertEqual(proj.transform(GLKVector3(nearLeft, 0, -0.1))
             .distance(to: GLKVector3(-1, 0, -1)), 0, accuracy: eps)
         
-        let farTop: Float = tan(toRadian(15)) * 100
+        let farTop: Float = tan(Angles.toRadian(15)) * 100
         let farHeight: Float = farTop * 2
         let farWidth = farHeight * 1920 / 1080
         let farLeft = -farWidth / 2
