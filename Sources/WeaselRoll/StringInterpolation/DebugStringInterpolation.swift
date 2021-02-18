@@ -1,7 +1,6 @@
 extension DefaultStringInterpolation {
     public mutating func appendInterpolation<T>(
-        debug x: T,
-        _ defaultValue: String
+        debug x: T
     ) where
         T: TextOutputStreamable,
         T: CustomStringConvertible
@@ -14,8 +13,7 @@ extension DefaultStringInterpolation {
     }
 
     public mutating func appendInterpolation<T>(
-        debug x: T,
-        _ defaultValue: String
+        debug x: T
     ) where
         T: TextOutputStreamable
     {
@@ -27,8 +25,7 @@ extension DefaultStringInterpolation {
     }
 
     public mutating func appendInterpolation<T>(
-        debug x: T,
-        _ defaultValue: String
+        debug x: T
     ) where
         T: CustomStringConvertible
     {
@@ -40,8 +37,7 @@ extension DefaultStringInterpolation {
     }
 
     public mutating func appendInterpolation<T>(
-        debug x: T,
-        _ defaultValue: String
+        debug x: T
     ) {
         if let x = x as? CustomDebugStringConvertible {
             appendInterpolation(x.debugDescription)
