@@ -51,7 +51,7 @@ public final class Regex {
         }
     }
     
-    public init(pattern: String, options: NSRegularExpression.Options) throws {
+    public init(pattern: String, options: NSRegularExpression.Options = []) throws {
         self.nsRegex = try NSRegularExpression(pattern: pattern, options: options)
     }
     
