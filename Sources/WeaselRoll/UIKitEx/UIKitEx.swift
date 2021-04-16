@@ -2,9 +2,9 @@
 
 import UIKit
 
-extension UIEdgeInsets: Modifiable {}
+extension UIEdgeInsets: Scopeable {}
 
 @available(iOS 11.0, tvOS 11.0, *)
-extension NSDirectionalEdgeInsets: Modifiable {}
+extension NSDirectionalEdgeInsets: Scopeable {}
 
 #endif
