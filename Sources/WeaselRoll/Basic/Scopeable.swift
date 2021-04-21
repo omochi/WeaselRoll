@@ -15,4 +15,10 @@ extension Scopeable {
         try f(&self)
         return self
     }
+
+    public func modified(_ f: (inout Self) throws -> Void) rethrows -> Self {
+        var temp = self
+        try f(&temp)
+        return temp
+    }
 }
