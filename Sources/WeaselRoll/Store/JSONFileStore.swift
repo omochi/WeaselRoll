@@ -1,6 +1,6 @@
 import Foundation
 
-public final class JSONFileStore<Value: Codable> {
+public final class JSONFileStore<Value: Codable>: StoreProtocol {
     public typealias Value = Value
     private let file: URL
     private let defaultValue: Value
@@ -50,12 +50,3 @@ public final class JSONFileStore<Value: Codable> {
     }
 }
 
-extension JSONFileStore {
-    @discardableResult
-    public func modify(_ f: (inout Value) throws -> Void) throws -> Value {
-        var value = try load()
-        try f(&value)
-        try store(value)
-        return value
-    }
-}
