@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol Scopeable {}
 
 extension Scopeable {
@@ -22,3 +24,5 @@ extension Scopeable {
         return temp
     }
 }
+
+extension NSObject: Scopeable {}
