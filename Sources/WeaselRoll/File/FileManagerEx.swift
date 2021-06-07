@@ -38,38 +38,6 @@ extension FileManager {
         try contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
     }
 
-    public func directoryOrFileEnumerator(
-        at url: URL,
-        includingPropertiesForKeys keys: [URLResourceKey]? = nil,
-        options mask: FileManager.DirectoryEnumerationOptions = [],
-        errorHandler handler: ((URL, Error) -> Bool)? = nil
-    ) -> AnySequence<URL> {
-        var isDir = false
-
-        guard fileExists(at: url, isDirectory: &isDir) else {
-            return AnySequence([])
-        }
-
-        if isDir {
-            return AnySequence { () -> AnyIterator<URL> in
-                guard let enumerator = self.enumerator(
-                    at: url,
-                    includingPropertiesForKeys: keys,
-                    options: mask,
-                    errorHandler: handler
-                ) else {
-                    return AnyIterator { nil }
-                }
-
-                return AnyIterator {
-                    enumerator.nextObject() as? URL
-                }
-            }
-        } else {
-            return AnySequence([url])
-        }
-    }
-
     public var currentDirectory: URL {
         URL(fileURLWithPath: currentDirectoryPath)
     }
