@@ -6,49 +6,34 @@ extension FileManager {
         var url: URL
         var keys: [URLResourceKey]?
         var options: DirectoryEnumerationOptions
-        var errorHandler: ((URL, Error) -> Bool)?
 
-        var step = 0
-        var enumerator: DirectoryEnumerator? = nil
+        var stack: [URL]
 
         mutating func next() -> URL? {
             while true {
-                switch step {
-                case 0:
-                    var isDir = false
-                    guard fm.fileExists(at: url, isDirectory: &isDir) else {
-                        return nil
-                    }
-                    if !isDir {
-                        step = -1
-                        return url
-                    }
-                    step = 1
-                    return url
-                case 1:
-                    guard let emr = fm.enumerator(
-                        at: url,
-                        includingPropertiesForKeys: keys,
-                        options: options,
-                        errorHandler: errorHandler
-                    ) else {
-                        step = -1
-                        return nil
-                    }
-                    enumerator = emr
-                    step = 2
-                case 2:
-                    guard let obj = enumerator?.nextObject(),
-                          let url = obj as? URL else
-                    {
-                        step = -1
-                        return nil
-                    }
-
-                    return url
-                default:
+                guard let head = stack.first else {
                     return nil
                 }
+                stack.removeFirst()
+
+                var isDir = false
+                guard fm.fileExists(at: head, isDirectory: &isDir) else {
+                    continue
+                }
+
+                guard isDir else {
+                    return head
+                }
+
+                guard let files = try? fm.relativeContentsOfDirectory(
+                        at: head,
+                        includingPropertiesForKeys: keys,
+                        options: options
+                ) else {
+                    continue
+                }
+
+                stack += files
             }
         }
     }
@@ -56,16 +41,15 @@ extension FileManager {
     public func directoryOrFileEnumerator(
         at url: URL,
         includingPropertiesForKeys keys: [URLResourceKey]? = nil,
-        options mask: FileManager.DirectoryEnumerationOptions = [],
-        errorHandler handler: ((URL, Error) -> Bool)? = nil
+        options: DirectoryEnumerationOptions = []
     ) -> AnySequence<URL> {
         return AnySequence { () in
             return DOFIterator(
                 fm: self,
                 url: url,
                 keys: keys,
-                options: mask,
-                errorHandler: handler
+                options: options,
+                stack: [url]
             )
         }
     }
