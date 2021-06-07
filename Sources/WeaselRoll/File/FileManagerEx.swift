@@ -37,4 +37,27 @@ extension FileManager {
     public func contentsOfDirectory(at directory: URL) throws -> [URL] {
         try contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])
     }
+
+    public var currentDirectory: URL {
+        URL(fileURLWithPath: currentDirectoryPath)
+    }
+
+    public func changeCurrentDirectory(_ dir: URL) throws {
+        guard changeCurrentDirectoryPath(dir.path) else {
+            throw MessageError("failed to change current directory: \(dir.path)")
+        }
+    }
+
+    public func withCurrentDirectory<R>(_ dir: URL, _ f: () throws -> R) throws -> R {
+        let old = currentDirectory
+        let result: R
+        do {
+            result = try f()
+        } catch {
+            _ = try? changeCurrentDirectory(old)
+            throw error
+        }
+        try changeCurrentDirectory(old)
+        return result
+    }
 }
