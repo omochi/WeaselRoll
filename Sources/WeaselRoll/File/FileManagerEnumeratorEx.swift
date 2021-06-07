@@ -25,15 +25,15 @@ extension FileManager {
                     return head
                 }
 
-                guard let files = try? fm.relativeContentsOfDirectory(
+                if let files = try? fm.relativeContentsOfDirectory(
                         at: head,
                         includingPropertiesForKeys: keys,
                         options: options
-                ) else {
-                    continue
+                ) {
+                    stack += files
                 }
 
-                stack += files
+                return head
             }
         }
     }
