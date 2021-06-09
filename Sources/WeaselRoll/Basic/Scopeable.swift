@@ -26,3 +26,5 @@ extension Scopeable {
 }
 
 extension NSObject: Scopeable {}
+extension Array: Scopeable {}
+extension Dictionary: Scopeable {}
