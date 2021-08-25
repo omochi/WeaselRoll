@@ -1,7 +1,7 @@
 infix operator ??=: AssignmentPrecedence
 
 extension Optional {
-    public func orThrow(_ error: @autoclosure () -> Error) throws -> Wrapped {
+    public func orThrow(error: @autoclosure () -> Error) throws -> Wrapped {
         if let x = self {
             return x
         }
