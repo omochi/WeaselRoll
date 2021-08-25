@@ -7,11 +7,7 @@ extension Optional {
         }
         throw error()
     }
-    
-    public func orThrow(_ message: @autoclosure () -> String) throws -> Wrapped {
-        try orThrow(MessageError(message()))
-    }
-    
+
     public mutating func consume<R>(_ f: (Wrapped) throws -> R) rethrows -> R? {
         guard let x = self else { return nil }
         self = nil
