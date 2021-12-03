@@ -47,4 +47,18 @@ public struct FileManagerEx {
             attributes: attributes
         )
     }
+
+    public func relativeContentsOfDirectory(
+        at directory: URL,
+        includingPropertiesForKeys keys: [URLResourceKey]? = nil,
+        options mask: FileManager.DirectoryEnumerationOptions = []
+    ) throws -> [URL] {
+        return try manager.contentsOfDirectory(
+            at: directory,
+            includingPropertiesForKeys: keys,
+            options: mask
+        ).map { (file) in
+            directory.appendingPathComponent(file.lastPathComponent)
+        }
+    }
 }

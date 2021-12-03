@@ -34,7 +34,6 @@ extension FileManager {
         )
     }
 
-
     public func createDirectory(
         at directory: URL,
         withIntermediateDirectories createIntermediates: Bool = true,
@@ -52,13 +51,11 @@ extension FileManager {
         includingPropertiesForKeys keys: [URLResourceKey]? = nil,
         options mask: FileManager.DirectoryEnumerationOptions = []
     ) throws -> [URL] {
-        return try contentsOfDirectory(
+        try ex.relativeContentsOfDirectory(
             at: directory,
-            includingPropertiesForKeys: keys,
+            includingPropertiesForKeys: key,
             options: mask
-        ).map { (file) in
-            directory.appendingPathComponent(file.lastPathComponent)
-        }
+        )
     }
 
     public var currentDirectory: URL {
