@@ -1,52 +1,37 @@
+import WeaselRoll
+
 extension DefaultStringInterpolation {
     public mutating func appendInterpolation<T>(
         _ x: Optional<T>,
-        _ defaultValue: String
+        _ default: String
     ) where
-        T: TextOutputStreamable,
-        T: CustomStringConvertible
+        T: TextOutputStreamable & CustomStringConvertible
     {
-        if let x = x {
-            self.appendInterpolation(x)
-        } else {
-            self.appendInterpolation(defaultValue)
-        }
+        appendInterpolation(describe(x, `default`))
     }
 
     public mutating func appendInterpolation<T>(
         _ x: Optional<T>,
-        _ defaultValue: String
+        _ default: String
     ) where
         T: TextOutputStreamable
     {
-        if let x = x {
-            self.appendInterpolation(x)
-        } else {
-            self.appendInterpolation(defaultValue)
-        }
+        appendInterpolation(describe(x, `default`))
     }
 
     public mutating func appendInterpolation<T>(
         _ x: Optional<T>,
-        _ defaultValue: String
+        _ default: String
     ) where
         T: CustomStringConvertible
     {
-        if let x = x {
-            self.appendInterpolation(x)
-        } else {
-            self.appendInterpolation(defaultValue)
-        }
+        appendInterpolation(describe(x, `default`))
     }
 
     public mutating func appendInterpolation<T>(
         _ x: Optional<T>,
-        _ defaultValue: String
+        _ default: String
     ) {
-        if let x = x {
-            self.appendInterpolation(x)
-        } else {
-            self.appendInterpolation(defaultValue)
-        }
+        appendInterpolation(describe(x, `default`))
     }
 }
