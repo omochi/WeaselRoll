@@ -11,6 +11,14 @@ let package = Package(
             name: "WeaselRoll",
             targets: ["WeaselRoll"]
         ),
+        .library(
+            name: "WLExts",
+            targets: ["WLExts"]
+        ),
+        .library(
+            name: "WLMedia",
+            targets: ["WLMedia"]
+        )
     ],
     dependencies: [
     ],
@@ -19,9 +27,17 @@ let package = Package(
             name: "WeaselRoll",
             dependencies: []
         ),
+        .target(
+            name: "WLExts",
+            dependencies: ["WeaselRoll"]
+        ),
+        .target(
+            name: "WLMedia",
+            dependencies: ["WeaselRoll"]
+        ),
         .testTarget(
             name: "WeaselRollTests",
-            dependencies: ["WeaselRoll"]
+            dependencies: ["WeaselRoll", "WLExts", "WLMedia"]
         ),
     ]
 )

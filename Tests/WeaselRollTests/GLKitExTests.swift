@@ -3,6 +3,7 @@
 import XCTest
 import GLKit
 import WeaselRoll
+import WLMedia
 
 final class GLKitExTests: XCTestCase {
     func testFrustum() {

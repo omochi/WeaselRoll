@@ -1,7 +1,7 @@
 import Foundation
 
 extension FileManager {
-    private struct DOFIterator: IteratorProtocol {
+    private struct DirectoryOrFileIterator: IteratorProtocol {
         var fm: FileManager
         var url: URL
         var keys: [URLResourceKey]?
@@ -26,9 +26,9 @@ extension FileManager {
                 }
 
                 if let files = try? fm.relativeContentsOfDirectory(
-                        at: head,
-                        includingPropertiesForKeys: keys,
-                        options: options
+                    at: head,
+                    includingPropertiesForKeys: keys,
+                    options: options
                 ) {
                     stack += files
                 }
@@ -44,7 +44,7 @@ extension FileManager {
         options: DirectoryEnumerationOptions = []
     ) -> AnySequence<URL> {
         return AnySequence { () in
-            return DOFIterator(
+            return DirectoryOrFileIterator(
                 fm: self,
                 url: url,
                 keys: keys,

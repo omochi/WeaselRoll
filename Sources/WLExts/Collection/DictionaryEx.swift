@@ -1,3 +1,5 @@
+import WeaselRoll
+
 extension Dictionary {
     public func mustGet(for key: Key) throws -> Value {
         guard let value = self[key] else {

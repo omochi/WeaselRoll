@@ -24,7 +24,3 @@ extension Scopeable {
         return temp
     }
 }
-
-extension NSObject: Scopeable {}
-extension Array: Scopeable {}
-extension Dictionary: Scopeable {}

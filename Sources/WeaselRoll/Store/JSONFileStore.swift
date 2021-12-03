@@ -28,7 +28,9 @@ public final class JSONFileStore<Value: Codable>: StoreProtocol {
             return cache
         }
 
-        let value = try Value.loadFromJSONIfExists(file: file) ?? defaultValue
+        let value = try JSONCodables.loadFromJSONIfExists(
+            type: Value.self, file: file
+        ) ?? defaultValue
 
         if isCacheEnabled {
             self.cache = value
@@ -38,7 +40,7 @@ public final class JSONFileStore<Value: Codable>: StoreProtocol {
     }
 
     public func store(_ value: Value) throws {
-        try value.storeToJSON(file: file)
+        try JSONCodables.storeToJSON(value: value, file: file)
 
         if isCacheEnabled {
             self.cache = value
