@@ -53,7 +53,7 @@ extension FileManager {
     ) throws -> [URL] {
         try ex.relativeContentsOfDirectory(
             at: directory,
-            includingPropertiesForKeys: key,
+            includingPropertiesForKeys: keys,
             options: mask
         )
     }
