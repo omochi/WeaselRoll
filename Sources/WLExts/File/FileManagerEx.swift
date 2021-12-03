@@ -2,16 +2,16 @@ import Foundation
 import WeaselRoll
 
 extension FileManager {
+    private var ex: FileManagerEx {
+        FileManagerEx(manager: self)
+    }
+
     public var permanentDirectory: URL {
-        urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        ex.permanentDirectory
     }
     
     public var documentDirectory: URL {
-        urls(for: .documentDirectory, in: .userDomainMask).first!
-    }
-
-    private var ex: FileManagerEx {
-        FileManagerEx(manager: self)
+        ex.documentDirectory
     }
 
     public func fileExists(at file: URL) -> Bool {

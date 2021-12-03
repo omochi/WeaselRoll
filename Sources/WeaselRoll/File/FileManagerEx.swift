@@ -7,6 +7,14 @@ public struct FileManagerEx {
         self.manager = manager
     }
 
+    public var permanentDirectory: URL {
+        manager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+    }
+
+    public var documentDirectory: URL {
+        manager.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+
     public func fileExists(at file: URL) -> Bool {
         manager.fileExists(atPath: file.path)
     }
